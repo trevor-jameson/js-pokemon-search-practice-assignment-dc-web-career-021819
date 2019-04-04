@@ -14,12 +14,11 @@ function renderFilteredCards(e) {
 
 function flipPokemonCard(e) {
   e.preventDefault()
-  let pokemonImage
-  if (!e.target.querySelector('img')) {
-    pokemonImage = e.target
-  }  else {
-    pokemonImage = e.target.querySelector("img");
-  }
+  
+  // Note: Using .currentTarget is preffered here over .target
+  // .target will return whichever element was clicked to fire the event, including the listener's children
+  // .currentTarget will only return the element upon which the event listener was placed
+  let pokemonImage = e.currentTarget.querySelector("img");
   
   // Note: What if I expected a match to id 0? Loose type comparison would match an empty string. 
   const chosenPokemon = POKEMON.find(singlePokemon => singlePokemon.id === parseInt(pokemonImage.dataset.id))
